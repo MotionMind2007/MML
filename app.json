@@ -16,6 +16,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.motionmind.mml",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -24,6 +25,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "llama.rn"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "6f72227f-e2b4-4975-babc-90cd50e2102f"
+      }
     }
   }
 }
