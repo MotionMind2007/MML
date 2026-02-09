@@ -22,8 +22,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
+    position: 'relative',
+    height: 60,
   },
-  headerTextContainer: { alignItems: 'center', marginLeft: 110 },
+  headerTextContainer: { alignItems: 'center', marginLeft: 110, maxWidth: '40%', },
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -37,10 +39,9 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#ff3b30',
     marginRight: 6,
   },
-    statusText: {
+  statusText: {
     fontSize: 12,
     color: '#666',
   },
@@ -52,6 +53,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     borderRadius: 20,
+    position: 'absolute',
+    right: 15,
+    top: 10,
+    zIndex: 10,
     // Shadow for Android
     elevation: 5,
     textAlign: 'center',

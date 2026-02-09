@@ -1,30 +1,57 @@
-📑 Project Blueprint: Motion Mind Local (v1.0.0)
-১. মূল উদ্দেশ্য (Core Purpose)
-একটি সম্পূর্ণ অফলাইন এবং প্রাইভেট লোকাল এআই চ্যাট অ্যাপ্লিকেশন যা ফোনের মেমোরি ব্যবহার করে .gguf ফরম্যাটের লার্জ ল্যাঙ্গুয়েজ মডেল (LLM) রান করে।
+# 🤖 MML (Motion Mind Local) - v1.1.0 (Stable)
 
-২. টেকনিক্যাল আর্কিটেকচার (Technical Stack)
-Framework: Expo SDK 54 (New Architecture Enabled).
+**MML (Motion Mind Local)** হলো একটি সম্পূর্ণ অফলাইন এবং প্রাইভেট লোকাল এআই চ্যাট অ্যাপ্লিকেশন। এটি আপনার ফোনের নিজস্ব প্রসেসর এবং মেমোরি ব্যবহার করে সরাসরি ডিভাইসে **.gguf** ফরম্যাটের লার্জ ল্যাঙ্গুয়েজ মডেল (LLM) রান করে। কোনো ইন্টারনেট বা ক্লাউড সার্ভারের প্রয়োজন নেই।
 
-Engine: llama.rn (Native binding for llama.cpp).
+---
 
-Storage: expo-file-system (Model caching & chat history).
+## ✨ নতুন কি আছে (v1.1.0 Updates)
+- 💾 **Persistent Chat History:** এখন চ্যাট হিস্ট্রি স্বয়ংক্রিয়ভাবে সেভ থাকে। অ্যাপ বন্ধ করে খুললে আগের কথা হারিয়ে যায় না।
+- 🔄 **Auto-Loading Engine:** অ্যাপ ওপেন করার সাথে সাথে আগের লোড করা মডেলটি নিজে থেকেই অনলাইন হয়ে যায়।
+- 🧹 **Advanced Memory Management:** নতুন মডেল লোড করার আগে পুরনো মেমোরি (RAM) এবং ক্যাশ ফাইল নিখুঁতভাবে ক্লিয়ার করার লজিক যুক্ত করা হয়েছে।
+- 🎨 **New Branding:** হাই-রেজোলিউশন নতুন লোগো এবং অপ্টিমাইজড ইউজার ইন্টারফেস।
+- 📖 **Interactive Guide:** অ্যাপের ভেতরেই মডেল ডাউনলোড এবং সেটিংসের বিস্তারিত গাইডলাইন।
 
-UI: React Native (Custom styles with SafeAreaView & KeyboardAvoidingView).
+---
 
-৩. লজিক ফ্লো এবং মডিউলসমূহ (Core Logic)
-ক. মডেল ম্যানেজমেন্ট (Model Lifecycle)
-Auto-load: অ্যাপ ওপেন হলে cacheDirectory/models/ ফোল্ডারে কোনো .gguf ফাইল থাকলে তা অটোমেটিক initLlama দিয়ে লোড হয়।
+## 🚀 মূল বৈশিষ্ট্যসমূহ (Core Features)
+- **সম্পূর্ণ অফলাইন:** ইন্টারনেট ছাড়াই এআই-এর সাথে কথা বলুন।
+- **প্রাইভেসি ফার্স্ট:** আপনার কোনো ডেটা বা মেসেজ ফোনের বাইরে যায় না।
+- **কাস্টম মডেল সাপোর্ট:** আপনার ফোনের র‍্যাম অনুযায়ী যেকোনো GGUF মডেল (Llama, Phi, Gemma, Qwen) ব্যবহার করতে পারেন।
+- **রিয়েল-টাইম স্ট্রিমিং:** টোকেন-বাই-টোকেন রেসপন্স যা আপনাকে লাইভ টাইপিং অভিজ্ঞতা দেয়।
+- **স্মার্ট কনটেক্সট:** এআই আগের মেসেজগুলো মনে রেখে উত্তর দিতে সক্ষম (Sliding Window Context)।
 
-Pick & Prepare: DocumentPicker দিয়ে ফাইল সিলেক্ট করার পর পুরনো মেমোরি (context.release()) খালি করে ক্যাশে ক্লিয়ার করা হয় এবং নতুন ফাইল কপি করে লোড করা হয়।
+---
 
-RAM Safety: n_ctx: 512 ব্যবহার করা হয়েছে যাতে বড় মডেলে ফোন ক্র্যাশ না করে।
+## 🛠 টেকনিক্যাল আর্কিটেকচার (Technical Stack)
+- **Framework:** Expo SDK 54 (New Architecture Enabled)
+- **Engine:** `llama.rn` (Native binding for llama.cpp)
+- **Storage:** `expo-file-system` (Model caching & chat history management)
+- **UI:** React Native with Custom Hooks (`useLlamaManager`, `useChatLayout`)
 
-খ. চ্যাট লজিক (Chat & Context)
-Context Sliding Window: এআই যেন আগের কথা মনে রাখতে পারে, তাই শেষ ৬টি মেসেজ (slice(0, 6)) প্রম্পটের সাথে পাঠানো হয়।
+---
 
-System Prompt: ইউজারের দেওয়া কাস্টম নির্দেশনার সাথে একটি hiddenConstraint (সংক্ষিপ্ত উত্তরের জন্য) যোগ করে এআইকে কন্ট্রোল করা হয়।
+## 📖 মডেল সেটআপ গাইড (Model Setup)
+সেরা পারফরম্যান্সের জন্য নিচের স্টেপগুলো অনুসরণ করুন:
 
-Streaming UI: এআই-এর প্রতিটি টোকেন জেনারেট হওয়ার সাথে সাথে fullResponse আপডেট হয়, যা ইউজারকে রিয়েল-টাইম টাইপিং অভিজ্ঞতা দেয়।
+1. **ডাউনলোড:** [Hugging Face](https://huggingface.co/models?library=gguf) থেকে একটি `.gguf` মডেল ডাউনলোড করুন।
+2. **ফরম্যাট:** সবসময় **Q4_K_M** কোয়ান্টাইজেশন ব্যবহার করার চেষ্টা করুন (এটি স্পিড এবং বুদ্ধিমত্তার জন্য সেরা ব্যালেন্স)।
+3. **সাজেশন:** - ৪জিবি র‍্যাম: **Llama-1B** বা **Qwen-1.5B**
+   - ৬জিবি+ র‍্যাম: **Gemma-2B** বা **Phi-3-Mini**
+   - ১২জিবি+ র‍্যাম: **Llama-3-8B**
 
-গ. ডাটা স্টোরেজ (Persistence)
-chat_history.json ফাইলে শেষ ২০টি মেসেজ সেভ থাকে, যা অ্যাপ পুনরায় চালু করলে লোড হয়।
+---
+
+## 🏗 লজিক ফ্লো (Logic Flow)
+- **Model Lifecycle:** অ্যাপ চালু হওয়ার সময় `models/` ফোল্ডার চেক করে এবং `initLlama` দিয়ে অটো-লোড করে।
+- **Memory Safety:** `context.release()` ব্যবহার করে ফোনের র‍্যাম ম্যানেজ করা হয় যাতে বড় মডেলে ফোন ক্র্যাশ না করে।
+- **Persistence:** `chat_history.json` ফাইলে সর্বশেষ ২০টি মেসেজ সংরক্ষিত থাকে।
+
+---
+
+## 👤 ডেভেলপার
+**MD. Saiful Alom Siam** *MML - Bringing AI to your pocket, offline and private.*
+
+---
+
+## 📄 লাইসেন্স
+এই প্রজেক্টটি ব্যক্তিগত এবং শিক্ষামূলক উদ্দেশ্যে তৈরি করা হয়েছে।
