@@ -1,28 +1,28 @@
 # 🤖 MML (Motion Mind Local) - v1.1.0 (Stable)
 
-**MML (Motion Mind Local)** হলো একটি সম্পূর্ণ অফলাইন এবং প্রাইভেট লোকাল এআই চ্যাট অ্যাপ্লিকেশন। এটি আপনার ফোনের নিজস্ব প্রসেসর এবং মেমোরি ব্যবহার করে সরাসরি ডিভাইসে **.gguf** ফরম্যাটের লার্জ ল্যাঙ্গুয়েজ মডেল (LLM) রান করে। কোনো ইন্টারনেট বা ক্লাউড সার্ভারের প্রয়োজন নেই।
+**MML (Motion Mind Local)** is a fully offline and private local AI chat application. It runs **.gguf** format Large Language Models (LLMs) directly on your device's processor and memory. No internet or cloud server is required.
 
 ---
 
-## ✨ নতুন কি আছে (v1.1.0 Updates)
-- 💾 **Persistent Chat History:** এখন চ্যাট হিস্ট্রি স্বয়ংক্রিয়ভাবে সেভ থাকে। অ্যাপ বন্ধ করে খুললে আগের কথা হারিয়ে যায় না।
-- 🔄 **Auto-Loading Engine:** অ্যাপ ওপেন করার সাথে সাথে আগের লোড করা মডেলটি নিজে থেকেই অনলাইন হয়ে যায়।
-- 🧹 **Advanced Memory Management:** নতুন মডেল লোড করার আগে পুরনো মেমোরি (RAM) এবং ক্যাশ ফাইল নিখুঁতভাবে ক্লিয়ার করার লজিক যুক্ত করা হয়েছে।
-- 🎨 **New Branding:** হাই-রেজোলিউশন নতুন লোগো এবং অপ্টিমাইজড ইউজার ইন্টারফেস।
-- 📖 **Interactive Guide:** অ্যাপের ভেতরেই মডেল ডাউনলোড এবং সেটিংসের বিস্তারিত গাইডলাইন।
+## ✨ What's New (v1.1.0 Updates)
+- 💾 **Persistent Chat History:** Chat history is now automatically saved. Your previous conversations remain even after closing and reopening the app.
+- 🔄 **Auto-Loading Engine:** The previously loaded model automatically loads when the app opens.
+- 🧹 **Advanced Memory Management:** Improved logic to perfectly clear old memory (RAM) and cache files before loading a new model.
+- 🎨 **New Branding:** High-resolution new logo and optimized user interface.
+- 📖 **Interactive Guide:** Detailed in-app guide for model downloading and settings.
 
 ---
 
-## 🚀 মূল বৈশিষ্ট্যসমূহ (Core Features)
-- **সম্পূর্ণ অফলাইন:** ইন্টারনেট ছাড়াই এআই-এর সাথে কথা বলুন।
-- **প্রাইভেসি ফার্স্ট:** আপনার কোনো ডেটা বা মেসেজ ফোনের বাইরে যায় না।
-- **কাস্টম মডেল সাপোর্ট:** আপনার ফোনের র‍্যাম অনুযায়ী যেকোনো GGUF মডেল (Llama, Phi, Gemma, Qwen) ব্যবহার করতে পারেন।
-- **রিয়েল-টাইম স্ট্রিমিং:** টোকেন-বাই-টোকেন রেসপন্স যা আপনাকে লাইভ টাইপিং অভিজ্ঞতা দেয়।
-- **স্মার্ট কনটেক্সট:** এআই আগের মেসেজগুলো মনে রেখে উত্তর দিতে সক্ষম (Sliding Window Context)।
+## 🚀 Core Features
+- **Fully Offline:** Chat with AI without any internet connection.
+- **Privacy First:** Your data and messages never leave your device.
+- **Custom Model Support:** Use any GGUF model (Llama, Phi, Gemma, Qwen) based on your device's RAM.
+- **Real-time Streaming:** Token-by-token responses for a live typing experience.
+- **Smart Context:** AI remembers previous messages and responds intelligently (Sliding Window Context).
 
 ---
 
-## 🛠 টেকনিক্যাল আর্কিটেকচার (Technical Stack)
+## 🛠 Technical Architecture
 - **Framework:** Expo SDK 54 (New Architecture Enabled)
 - **Engine:** `llama.rn` (Native binding for llama.cpp)
 - **Storage:** `expo-file-system` (Model caching & chat history management)
@@ -30,28 +30,30 @@
 
 ---
 
-## 📖 মডেল সেটআপ গাইড (Model Setup)
-সেরা পারফরম্যান্সের জন্য নিচের স্টেপগুলো অনুসরণ করুন:
+## 📖 Model Setup Guide
+Follow these steps for the best performance:
 
-1. **ডাউনলোড:** [Hugging Face](https://huggingface.co/models?library=gguf) থেকে একটি `.gguf` মডেল ডাউনলোড করুন।
-2. **ফরম্যাট:** সবসময় **Q4_K_M** কোয়ান্টাইজেশন ব্যবহার করার চেষ্টা করুন (এটি স্পিড এবং বুদ্ধিমত্তার জন্য সেরা ব্যালেন্স)।
-3. **সাজেশন:** - ৪জিবি র‍্যাম: **Llama-1B** বা **Qwen-1.5B**
-   - ৬জিবি+ র‍্যাম: **Gemma-2B** বা **Phi-3-Mini**
-   - ১২জিবি+ র‍্যাম: **Llama-3-8B**
-
----
-
-## 🏗 লজিক ফ্লো (Logic Flow)
-- **Model Lifecycle:** অ্যাপ চালু হওয়ার সময় `models/` ফোল্ডার চেক করে এবং `initLlama` দিয়ে অটো-লোড করে।
-- **Memory Safety:** `context.release()` ব্যবহার করে ফোনের র‍্যাম ম্যানেজ করা হয় যাতে বড় মডেলে ফোন ক্র্যাশ না করে।
-- **Persistence:** `chat_history.json` ফাইলে সর্বশেষ ২০টি মেসেজ সংরক্ষিত থাকে।
+1. **Download:** Download a `.gguf` model from [Hugging Face](https://huggingface.co/models?library=gguf).
+2. **Format:** Always try to use **Q4_K_M** quantization (best balance between speed and intelligence).
+3. **Recommendations:**
+   - 4GB RAM: **Llama-1B** or **Qwen-1.5B**
+   - 6GB+ RAM: **Gemma-2B** or **Phi-3-Mini**
+   - 12GB+ RAM: **Llama-3-8B**
 
 ---
 
-## 👤 ডেভেলপার
-**MD. Saiful Alom Siam** *MML - Bringing AI to your pocket, offline and private.*
+## 🏗 Logic Flow
+- **Model Lifecycle:** On app launch, it checks the `models/` folder and auto-loads the model using `initLlama`.
+- **Memory Safety:** Uses `context.release()` to manage device RAM and prevent crashes with large models.
+- **Persistence:** Last 20 messages are saved in `chat_history.json` file.
 
 ---
 
-## 📄 লাইসেন্স
-এই প্রজেক্টটি ব্যক্তিগত এবং শিক্ষামূলক উদ্দেশ্যে তৈরি করা হয়েছে।
+## 👤 Developer
+**MD. Saiful Alom Siam**  
+*MML - Bringing AI to your pocket, offline and private.*
+
+---
+
+## 📄 License
+This project is created for personal and educational purposes.
